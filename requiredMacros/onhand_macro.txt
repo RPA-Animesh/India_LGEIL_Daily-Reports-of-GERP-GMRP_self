@@ -1,0 +1,25 @@
+Sub ApplyPivotFiltersUnique()
+    Dim wb As Workbook
+    Dim pt As PivotTable
+    Dim pf As PivotField
+    Dim pi As PivotItem
+    
+    ' Reference the active workbook 
+    Set wb = ActiveWorkbook
+    
+    ' Ensure that the sheet and pivot table names are correct
+    Set pt = wb.Sheets("PIVOT TABLE").PivotTables("PIVOT TABLE")
+    Set pf = pt.PivotFields("Subinv")
+    
+    ' Clear existing filters
+    pf.ClearAllFilters
+    
+    ' Filter specific items
+    For Each pi In pf.PivotItems
+        If pi.Name = "RAW-CLAIM" or pi.Name = "RAW-DISUSE" or pi.Name = "RAW-OSND"  or pi.Name = "RAW-OVS" or pi.Name = "RAW-RLOG" Then
+            pi.Visible = True
+        Else
+            pi.Visible = False
+        End If
+    Next pi
+End Sub

@@ -1,0 +1,25 @@
+Sub ApplyPivotFiltersUniquedilyresult()
+    Dim wb As Workbook
+    Dim pt As PivotTable
+    Dim pf As PivotField
+    Dim pi As PivotItem
+    
+    ' Reference the active workbook (the one opened by UiPath)
+    Set wb = ActiveWorkbook
+    
+    ' Ensure that the sheet and pivot table names are correct
+    Set pt = wb.Sheets("PIVOT TABLE").PivotTables("PIVOT TABLE")
+    Set pf = pt.PivotFields("Line")
+    
+    ' Clear existing filters
+    pf.ClearAllFilters
+    
+    ' Filter specific items
+    For Each pi In pf.PivotItems
+        If pi.Name = "L01" or pi.Name = "L02" or pi.Name = "PL1"  or pi.Name = "PL2" or pi.Name = "PL3" Then
+            pi.Visible = True
+        Else
+            pi.Visible = False
+        End If
+    Next pi
+End Sub
